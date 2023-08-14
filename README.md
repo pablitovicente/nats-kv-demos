@@ -2,6 +2,9 @@
 
 Quick demo about using [NATS Key/Value Store](https://docs.nats.io/nats-concepts/jetstream/key-value-store) with NodeJS
 
+- Shows usage of Key/Value store over NATS native connection
+- Shows usage of Key/Value store over NATS Websocket connection
+
 ## Prerequisites
 
 - Docker
@@ -15,9 +18,11 @@ Quick demo about using [NATS Key/Value Store](https://docs.nats.io/nats-concepts
 
 ## How to run?
 
-- Start a process `pm2 start --name producer producer.mjs`
+- Start a producer `pm2 start --name producer producer.mjs` (will generate key/value pairs as fast as possible)
 - Start a watcher `node consumer.mjs`
-- Scale the producer to several instances `pm2 scale producer 60`
+- Scale the producer to several instances `pm2 scale producer 20`
+- Start a producer that connects using WebSockets `pm2 start --name wsproducer websocket-producer.mjs` (will generate key/value pairs as fast as possible only difference is that it uses WebSocket for transport)
+- Alternatively also scale this producer `pm2 scale wsproducer 20`
 
 ## Gotchas
 
@@ -29,5 +34,4 @@ Quick demo about using [NATS Key/Value Store](https://docs.nats.io/nats-concepts
 
 ## TODO
 
-- Add connection over WS
 - Add more realistic examples

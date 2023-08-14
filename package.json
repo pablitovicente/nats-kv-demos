@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "nats": "^2.15.1",
+    "nats.ws": "^1.16.1",
     "pino": "^8.15.0",
     "uuid": "^9.0.0"
   },

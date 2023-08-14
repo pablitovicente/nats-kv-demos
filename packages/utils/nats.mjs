@@ -1,9 +1,12 @@
-import { connect, consumerOpts } from 'nats'
+import { connect as natsConnect, consumerOpts } from 'nats'
 import { EventEmitter } from 'events'
+import { connect as WSConnect } from "nats.ws";
+
 
 export default class Nats {
   constructor (options) {
     this.natsServers = options.natsServers
+    this.natsWebSocketServers = options.natsWebSocketServers
     this.connection = undefined
     this.jetstreamClient = undefined
     this.emitter = new EventEmitter()
@@ -11,8 +14,18 @@ export default class Nats {
 
   async connect () {
     // Connect
-    this.connection = await connect({
+    this.connection = await natsConnect({
       servers: this.natsServers,
+    })
+    // Setup stream manager
+    await this.getJetstreamManager()
+    // Setup Jetstream client
+    this.jetstreamClient = await this.connection.jetstream()
+  }
+
+  async WSConnect () {
+    this.connection = await WSConnect({
+      servers: this.natsWebSocketServers,
     })
     // Setup stream manager
     await this.getJetstreamManager()
