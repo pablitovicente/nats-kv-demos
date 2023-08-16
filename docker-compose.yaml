@@ -13,9 +13,12 @@ services:
       - 18222:8222
       - 2883:1883
       - 1443:443
+      - 50001:50001
     volumes:
       - ./jetstream-cluster/nats-1:/data
       - ./configs/nats-1.conf:/nats-server.conf
+    environment:
+      GOMEMLIMIT: 16000MiB
 
   nats-2:
     container_name: nats-2
@@ -29,9 +32,12 @@ services:
       - 28222:8222
       - 3883:1883
       - 1444:443
+      - 50002:50002
     volumes:
       - ./jetstream-cluster/nats-2:/data
       - ./configs/nats-2.conf:/nats-server.conf
+    environment:
+      GOMEMLIMIT: 16000MiB
 
   nats-3:
     container_name: nats-3
@@ -45,9 +51,12 @@ services:
       - 38222:8222
       - 4883:1883
       - 1445:443
+      - 50003:50003
     volumes:
       - ./jetstream-cluster/nats-3:/data
       - ./configs/nats-3.conf:/nats-server.conf
+    environment:
+      GOMEMLIMIT: 16000MiB
 
   mqtt-broker:
     container_name: mqtt-broker
